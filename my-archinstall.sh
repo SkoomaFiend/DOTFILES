@@ -1,6 +1,5 @@
 ip link
 timedatectl set-ntp true 
-mv install-in-root.sh /mnt  
 sfdisk -d --quiet /dev/nvme0n1 > nvme.dump
 mkfs.fat -F 32 /dev/nvme0n1p1
 mkswap /dev/nvme0n1p4
