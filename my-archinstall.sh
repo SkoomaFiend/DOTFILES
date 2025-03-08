@@ -1,5 +1,6 @@
 ip link
 timedatectl set-ntp true 
+mv install-in-root.sh /mnt  
 sfdisk -d --quiet /dev/nvme0n1 > nvme.dump
 mkfs.fat -F 32 /dev/nvme0n1p1
 mkswap /dev/nvme0n1p4
@@ -9,6 +10,6 @@ mount /dev/nvme0n1p2 /mnt
 mkdir /mnt/home/
 mount /dev/nvme0n1p3 /mnt/home
 swapon /dev/nvme0n1p4
-pacstrap -K /mnt base linux-zen linux-firmware
+pacstrap -K /mnt base linux linux-firmware
 genfstab -U /mnt >> /mnt/etc/fstab
 arch-chroot /mnt
