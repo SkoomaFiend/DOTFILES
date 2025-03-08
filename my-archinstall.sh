@@ -1,5 +1,6 @@
 ip link
 timedatectl set-ntp true 
+sfdisk -d --quiet /dev/nvme0n1 > nvme.dump
 mkfs.fat -F 32 /dev/nvme0n1p1
 mkswap /dev/nvme0n1p4
 mkfs.ext4 /dev/nvme0n1p2
