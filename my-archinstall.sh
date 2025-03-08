@@ -8,7 +8,7 @@ mount /dev/nvme0n1p2 /mnt
 mkdir /mnt/home/
 mount /dev/nvme0n1p3 /mnt/home
 swapon /dev/nvme0n1p4
-pacstrap -K /mnt base linux-zen linux-firmware
+pacstrap -K /mnt base linux linux-firmware
 genfstab -U /mnt >> /mnt/etc/fstab
 arch-chroot /mnt
 ln -sf /usr/share/zoneinfo/America/New_York /etc/localtime
@@ -22,10 +22,8 @@ mkinitcpio -P
 pacman -S grub efibootmgr
 mkdir /boot/EFI
 mount /dev/nvme0n1p1 /boot/EFI
-grub-install --target=x86_64-efi --efi-directory=/boot/EFI --bootloader-id=GRUB
-grub-mkconfig -o /boot/grub/grub.cfg
-useradd -m -G wheel dan
-pacman -S nvidia nvidia-utils
+
+
 
 
 
