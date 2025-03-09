@@ -11,4 +11,4 @@ mount /dev/nvme0n1p3 /mnt/home
 swapon /dev/nvme0n1p4
 pacstrap -K /mnt base linux linux-firmware
 genfstab -U /mnt >> /mnt/etc/fstab
-arch-chroot /mnt
+arch-chroot /mnt /bin/bash -c "./install-in-root.sh"
