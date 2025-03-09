@@ -11,5 +11,6 @@ mkdir /boot/EFI
 mount /dev/nvme0n1p1 /boot/EFI
 grub-install --target=x86_64-efi --efi-directory=/boot/EFI --bootloader-id=GRUB
 grub-mkconfig -o /boot/grub/grub.cfg
-pacman -S sudo vim
+pacman -S sudo vim nvidia nvidia-utils xf86-video-intel 
+systemctl enable NetworkManager bluetooth
 useradd -m -G wheel -s /bin/bash dan
