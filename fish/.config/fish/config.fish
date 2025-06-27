@@ -43,11 +43,4 @@ end
 
 set -x EDITOR nvim
 
-batman --export-env | source 
-
-# Fish Bindings
-#bind -M default \x20p fish_clipboard_paste
-#bind -M default \x20y fish_clipboard_copy
-#bind -M default \eb prevd-or-backward-word
-#bind -M default \ef nextd-or-forward-word
 

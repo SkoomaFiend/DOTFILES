@@ -79,7 +79,7 @@ sudo sed -i '/^\s*#\[multilib\]/,/^\s*#Include = \/etc\/pacman.d\/mirrorlist/ s/
 sudo pacstrap /mnt grub efibootmgr os-prober 
 
 # Packages 
-#sudo pacstrap /mnt hyprland fish mpv kitty tealdeer yazi keyd ly firefox nvim ani-cli steam bat-extras borg timeshift bottom waybar wofi gamemode unzip fd
+sudo pacstrap /mnt hyprland fish mpv kitty tealdeer yazi keyd ly firefox nvim ani-cli steam bat-extras borg timeshift bottom waybar wofi gamemode unzip fd
 
 # Generate fstab and mount windows 
 mkdir -p /mnt/windows

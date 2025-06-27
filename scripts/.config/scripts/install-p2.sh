@@ -6,10 +6,21 @@ echo -e "Paste the command in your clipboard into tridactyl commandline and run 
 
 read -p "Press enter to continue" 
 
+echo "source --url https://raw.githubusercontent.com/SkoomaFiend/DOTFILES/refs/heads/main/tridactyl/.config/tri.cfg" | wl-copy
+
 
 sudo mv default.conf /etc/keyd/
 tldr --update 
 stow */
+
+
+
+
+# Set env variables
+set -U tldrpages ~/.local/share/tealdeer/pages/
+set -U fish_user_paths $HOME/.config/scripts $fish_user_paths
+set -Ux PAGER bat
+batman --export-env | source
 
 
 
