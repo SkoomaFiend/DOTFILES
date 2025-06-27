@@ -36,6 +36,7 @@ SETUVAR fish_pager_color_selected_background:\x2dr
 SETUVAR fish_user_paths:/home/dan/\x2enix\x2dprofile/bin\x1e/home/dan/\x2econfig/scripts\x1e/home/dan/\x2elocal/bin
 SETUVAR macros:/home/dan/\x2econfig/macros/
 SETUVAR movies:/mnt/windows/Users/Daniel/Desktop/Videos/Movies/
-SETUVAR --export scripts:/home/dan/\x2elocal/bin
+SETUVAR script:/home/dan/\x2econfig/scripts
+SETUVAR --export scripts:/home/dan/\x2econfig/scripts
 SETUVAR tldrpages:/home/dan/\x2elocal/share/tealdeer/pages/
 SETUVAR windows:/mnt/windows/
