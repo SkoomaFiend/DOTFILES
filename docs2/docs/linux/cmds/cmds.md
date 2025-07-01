@@ -4,6 +4,8 @@
 - Separate them if they take arguments 
 
 
+
+
 [networking]
 
 # ss
@@ -18,7 +20,21 @@
       -t fish 
 - use specified shell 
 
+
+
+
+
 [file management]
+
+# borg
+
+### examples 
+
+    borg list /mnt/windows//Users/Daniel/Documents/linux_backup
+- List borg snapshots in repo 
+
+      borg info /mnt/windows//Users/Daniel/Documents/linux_backup::version-0.01
+- List files in a snapshot 
 
 # ln
 
@@ -30,6 +46,10 @@
 - creates link to directory 
 
 
+
+
+
+[network file management]
 # scp
 
 - File destination must have sshd running
@@ -59,6 +79,41 @@
 
 
 
+[audio]
+
+# ffmpeg
+
+### examples 
+
+    ffmpeg -i {{path/to/video.mp4}} -vn {{path/to/sound.mp3}}
+- Extract the sound from a video and save it as MP3
+
+
+        ffmpeg -i {{path/to/input_video.mp4}} -ss {{mm:ss}} -to {{mm2:ss2}} {{[-c|-codec]}} copy {{path/to/output_video.mp4}}
+- Trim a video from a given start time mm:ss to an end time mm2:ss2 (omit the -to flag to trim till the end)
+
+
+        ffmpeg -i {{path/to/input_video}}.avi {{[-c|-codec]}}:a aac -b:a 128k {{[-c|-codec]}}:v libx264 -crf 23 {{path/to/output_video}}.mp4
+- Convert AVI video to MP4. AAC Audio @ 128kbit, h264 Video @ CRF 23
+
+
+
+
+
+[packages]
+
+# pacman 
+
+### examples 
+
+
+    pacman -Qet
+- To list all packages explicitly installed and not dependencies 
+
+
+
+
+
 [text search]
 # rg
 - recursively search directory for every matching word
@@ -73,6 +128,9 @@
 
 ## -A num
 - After grep finds line print the give argument number of lines
+
+
+
 
 [file search]
 
@@ -111,6 +169,9 @@
 - finds all files in current directory that don't have the .mp4 extension and appends .mp4 onto the
 
 
+
+
+
 [disk]
 
 # df
@@ -123,6 +184,10 @@
 
 # su 
 - switch to another user 
+
+
+
+
 
 [proceses]
 

@@ -1,30 +1,35 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -euo pipefail
 
-version=$(cat ~/.config/.borg-version)
+# ── Configuration ──────────────────────────────────────────────────────────────
+export BORG_REPO=/mnt/windows/Users/Daniel/Documents/linux_backup
+# (or use BORG_KEYFILE=/root/.config/borg/keyfile for keyfile encryption)
+
+# Retention policy for pruning
+KEEP_DAILY=7
+KEEP_WEEKLY=4
+KEEP_MONTHLY=6
+
+# What to back up:
+BACKUP_SOURCES=(
+    /home/dan/notes
+    /home/dan/.config
+    /home/dan/projects
+    /home/dan/docs
+)
+
+# ── Functions ──────────────────────────────────────────────────────────────────
+timestamp() { date +%Y-%m-%dT%H:%M:%S; }
+
+# ── Run backup ─────────────────────────────────────────────────────────────────
+archive="backup-$(hostname)-$(timestamp)"
+borg create                               \
+  --stats                                 \
+  --compression lz4                       \
+  "$BORG_REPO"::"$archive"                \
+  "${BACKUP_SOURCES[@]}"
 
 
+# ── Done ──────────────────────────────────────────────────────────────────────
+echo "[$(timestamp)] Backup $archive complete"
 
-sudo borg create --verbose --stats --show-rc \
-  --compression lz4 \
-  --exclude '**/Downloads' \
-  --exclude '**/.cache' \
-  --exclude '**/.local/share/Steam' \
-  --exclude '**/Games' \
-  --exclude '**/videos' \
-  --exclude '**/.local/share/Trash' \
-  --exclude '**/youtube' \
-  --exclude '**/pictures' \
-  --exclude '**/.wine' \
-  --exclude '**/.factorio' \
-  --exclude '**/.ssh' \
-  --exclude '**/.mozilla' \
-  --exclude '**/.steam' \
-  --exclude '**/.local/state' \
-  --exclude '**/VirtualBox VMs' \
-    /mnt/windows/Users/Daniel/Documents/linux_backup::version-$version ~
-
-# Increment version (e.g., from 1.0 → 1.01)
-next_version=$(awk -v v="$version" 'BEGIN { printf "%.2f", v + 0.01 }')
-
-
-echo "$next_version" > ~/.config/.borg-version

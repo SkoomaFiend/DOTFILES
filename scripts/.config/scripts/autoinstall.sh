@@ -80,7 +80,7 @@ sudo sed -i '/^\s*#\[multilib\]/,/^\s*#Include = \/etc\/pacman.d\/mirrorlist/ s/
 sudo pacstrap /mnt grub efibootmgr os-prober 
 
 # Packages 
-sudo pacstrap /mnt hyprland fish mpv kitty tealdeer yazi keyd ly firefox nvim steam bat-extras borg timeshift bottom waybar wofi gamemode unzip fd wl-clipboard
+sudo pacstrap /mnt hyprland fish mpv kitty tealdeer yazi keyd ly firefox nvim steam bat-extras borg timeshift bottom waybar wofi gamemode unzip fd wl-clipboard cronie
 
 # Generate fstab and mount windows 
 mkdir -p /mnt/mnt/windows
@@ -105,7 +105,7 @@ echo 'dan' > /etc/hostname
 useradd -m -G wheel dan
 yes "dan" | passwd dan
 git clone https://github.com/SkoomaFiend/DOTFILES.git /home/dan/
-systemctl enable NetworkManager bluetooth ly keyd pipewire pipewire-pulse rtkit-daemon
+systemctl enable NetworkManager bluetooth ly keyd pipewire pipewire-pulse rtkit-daemon cronie
 systemctl disable nvidia-hibernate.service nvidia-resume.service nvidia-suspend.service  
 sed -i '/OS_PROBER=/s/^#//' /etc/default/grub
 sed -i "/monitor=/c\monitor= , 1920x1080@${refresh}, 0x0, 1" /home/dan/DOTFILES/hypr/.config/hypr/hyprland.conf

@@ -29,7 +29,12 @@ alias logout='hyprctl dispatch exit'
 alias mycmds='bat --line-range 6:29 ~/.config/fish/config.fish'
 alias pince='sudo -E ~/Downloads/PINCE-x86_64.AppImage & disown'
 alias pnc='sudo pacman --noconfirm'
+alias stowall='mv default.conf ~ && stow */ && mv ~/default.conf .'
+alias stowgit='git add . && git commit -m "configs update" && git push'
 alias lf='yazi'
+
+# Binaries
+alias todo='~/Downloads/binaries/taskwarrior-tui'
 
 set -U fish_user_paths $fish_user_paths /home/dan/.local/bin
 

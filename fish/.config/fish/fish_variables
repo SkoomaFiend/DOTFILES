@@ -1,6 +1,7 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
 SETUVAR --export PAGER:bat
+SETUVAR --export VISUAL:nvim
 SETUVAR __fish_initialized:3800
 SETUVAR backup:/mnt/windows//Users/Daniel/Documents/All/
 SETUVAR --export bench:Downloads/Unigine_Superposition\x2d1\x2e1/Superposition

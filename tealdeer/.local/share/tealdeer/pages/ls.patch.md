@@ -1,7 +1,7 @@
 > Daniels
 
 
-- list all files and directories
+- list all files and directories recursively 
 
 `ls **/*` 
 
