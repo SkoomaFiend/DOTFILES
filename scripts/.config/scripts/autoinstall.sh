@@ -12,7 +12,7 @@ set -e
 read -p "Enter intel or amd for cpu drivers : " cputype
 read -p "Enter your mount drive eg. /dev/nvme1 or /dev/sda : " drive
 read -p "Enter your refresh rate : " refresh
-read -p "Enter drive 2 (prefer windows) : nstall" drivetwo
+read -p "Enter drive 2 eg. /dev/nvme0n1p3 " drivetwo
 
 echo "Your drive is : $drive" 
 echo "Your Cpu type is $cputype"
@@ -62,6 +62,7 @@ mount $drive\3 /mnt/home
 # Run Reflector - Mirrors should be Replaced after running pacstrap 
 sudo sed -i 's/= 5/= 10/' /etc/pacman.conf
 sudo reflector --country US --protocol https --sort rate --save /etc/pacman.d/mirrorlist
+sudo sed -i '/^\s*#\[multilib\]/,/^\s*#Include = \/etc\/pacman.d\/mirrorlist/ s/^#//' /etc/pacman.conf
 
 # System Packages
 sudo pacstrap -K /mnt base base-devel linux-zen linux-zen-headers linux-firmware 
@@ -69,21 +70,21 @@ sudo pacstrap -K /mnt base base-devel linux-zen linux-zen-headers linux-firmware
 # Nvidia - Must be before other packages such as steam because if not pacstrap will use default options
 sudo pacstrap /mnt nvidia-dkms nvidia-utils lib32-nvidia-utils
 
-sudo pacstrap /mnt $cputype ntfs-3g networkmanager pipewire openssh git stow noto-fonts bluez bluez-utils 
+sudo pacstrap /mnt $cputype ntfs-3g networkmanager pipewire wireplumber pipewire-audio pipewire-pulse rtkit openssh git stow noto-fonts bluez bluez-utils 
 
 
 # Sets Parallel Downloading and adds multilib that is required to download some packages 
 sudo sed -i 's/= 5/= 10/' /mnt/etc/pacman.conf
-sudo sed -i '/^\s*#\[multilib\]/,/^\s*#Include = \/etc\/pacman.d\/mirrorlist/ s/^#//' /etc/pacman.conf
+sudo sed -i '/^\s*#\[multilib\]/,/^\s*#Include = \/etc\/pacman.d\/mirrorlist/ s/^#//' /mnt/etc/pacman.conf
 # GRUB
 sudo pacstrap /mnt grub efibootmgr os-prober 
 
 # Packages 
-sudo pacstrap /mnt hyprland fish mpv kitty tealdeer yazi keyd ly firefox nvim ani-cli steam bat-extras borg timeshift bottom waybar wofi gamemode unzip fd
+sudo pacstrap /mnt hyprland fish mpv kitty tealdeer yazi keyd ly firefox nvim steam bat-extras borg timeshift bottom waybar wofi gamemode unzip fd wl-clipboard
 
 # Generate fstab and mount windows 
-mkdir -p /mnt/windows
-mount $drivetwo /mnt/windows
+mkdir -p /mnt/mnt/windows
+mount $drivetwo /mnt/mnt/windows
 genfstab -U /mnt >> /mnt/etc/fstab
 
 
@@ -104,8 +105,15 @@ echo 'dan' > /etc/hostname
 useradd -m -G wheel dan
 yes "dan" | passwd dan
 git clone https://github.com/SkoomaFiend/DOTFILES.git /home/dan/
-systemctl enable NetworkManager bluetooth ly keyd
+systemctl enable NetworkManager bluetooth ly keyd pipewire pipewire-pulse rtkit-daemon
 systemctl disable nvidia-hibernate.service nvidia-resume.service nvidia-suspend.service  
-sed '/OS_PROBER=/s/^#//' /etc/default/grub
+sed -i '/OS_PROBER=/s/^#//' /etc/default/grub
 sed -i "/monitor=/c\monitor= , 1920x1080@${refresh}, 0x0, 1" /home/dan/DOTFILES/hypr/.config/hypr/hyprland.conf
+cd /home/dan/DOTFILES
+mv default.conf /etc/keyd
+stow -t /home/dan */
+sudo chown -R dan:dan ../DOTFILES
 EOF
+
+sudo visudo /mnt/etc/sudoers
+

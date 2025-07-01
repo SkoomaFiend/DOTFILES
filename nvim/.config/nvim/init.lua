@@ -437,7 +437,6 @@ require('lazy').setup({
       require('telescope').setup {
         -- You can put your default mappings / updates / etc. in here
         --  All the info you're looking for is in `:help telescope.setup()`
-        --
         -- defaults = {
         --   mappings = {
         --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
@@ -536,6 +535,23 @@ require('lazy').setup({
           },
         }
       end, { desc = '[S]earch Notes & Journal' })
+      vim.keymap.set('n', '<leader>dl', function()
+        require('telescope.builtin').find_files {
+          search_dirs = { '~/docs/linux' },
+        }
+      end, { desc = '[D]ocs [L]inux' })
+
+      vim.keymap.set('n', '<leader>dt', function()
+        require('telescope.builtin').find_files {
+          search_dirs = { '~/docs/tridactyl' },
+        }
+      end, { desc = '[D]ocs [T]ridactyl' })
+
+      vim.keymap.set('n', '<leader>dv', function()
+        require('telescope.builtin').find_files {
+          search_dirs = { '~/docs/vim' },
+        }
+      end, { desc = '[D]ocs [V]im' })
     end,
   },
 
@@ -1012,12 +1028,18 @@ require('lazy').setup({
     end,
   },
 
+  {
+    'binhtran432k/dracula.nvim',
+    lazy = false,
+    priority = 1000,
+    opts = {},
+  },
   -- Highlight todo, notes, etc in comments
   {
     'folke/todo-comments.nvim',
     event = 'VimEnter',
     dependencies = { 'nvim-lua/plenary.nvim' },
-    opts = { signs = false },
+    opts = { signs = true },
   },
 
   { -- Collection of various small independent plugins/modules
@@ -1056,24 +1078,6 @@ require('lazy').setup({
       -- ... and there is more!
       --  Check out: https://github.com/echasnovski/mini.nvim
     end,
-  },
-
-  {
-    'bngarren/checkmate.nvim',
-    ft = 'markdown', -- Lazy loads for Markdown files matching patterns in 'files'
-    opts = {
-      files = { '*.md' },
-      keys = {
-        ['<leader>tt'] = 'toggle', -- Toggle todo item
-        ['<leader>tc'] = 'check', -- Set todo item as checked (done)
-        ['<leader>tu'] = 'uncheck', -- Set todo item as unchecked (not done)
-        ['<leader>tn'] = 'create', -- Create todo item
-        ['<leader>tR'] = 'remove_all_metadata', -- Remove all metadata from a todo item
-        ['<leader>ta'] = 'archive', -- Archive checked/completed todo items (move to bottom section)
-      },
-      -- your configuration here
-      -- or leave empty to use defaults
-    },
   },
 
   { -- Highlight, edit, and navigate code
@@ -1161,10 +1165,6 @@ require('lazy').setup({
     },
   },
 })
-
-vim.cmd 'colorscheme wildcharm'
-vim.cmd 'highlight markdownH1 guifg=#ff5555 gui=bold'
-vim.cmd 'highlight markdownH2 guifg=#48cf23 gui=bold'
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
