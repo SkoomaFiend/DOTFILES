@@ -12,10 +12,10 @@ KEEP_MONTHLY=6
 
 # What to back up:
 BACKUP_SOURCES=(
-    /home/dan/notes
-    /home/dan/.config
-    /home/dan/projects
-    /home/dan/docs
+  /home/dan/notes
+  /home/dan/.config
+  /home/dan/projects
+  /home/dan/docs
 )
 
 # ── Functions ──────────────────────────────────────────────────────────────────
@@ -23,13 +23,11 @@ timestamp() { date +%Y-%m-%dT%H:%M:%S; }
 
 # ── Run backup ─────────────────────────────────────────────────────────────────
 archive="backup-$(hostname)-$(timestamp)"
-borg create                               \
-  --stats                                 \
-  --compression lz4                       \
-  "$BORG_REPO"::"$archive"                \
+borg create \
+  --stats \
+  --compression lz4 \
+  "$BORG_REPO"::"$archive" \
   "${BACKUP_SOURCES[@]}"
-
 
 # ── Done ──────────────────────────────────────────────────────────────────────
 echo "[$(timestamp)] Backup $archive complete"
-

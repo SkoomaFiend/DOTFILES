@@ -218,6 +218,3 @@ Specifiers :
 ## bg %num
 - puts jobs back into background 
 
-
-
-
